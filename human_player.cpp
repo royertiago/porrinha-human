@@ -33,8 +33,8 @@ int HumanPlayer::hand() {
             std::cout << "You cannot play a negative number of chopsticks!\n"
                 "Type a valid number of chopsticks:";
             continue;
-            break;
         }
+        break;
     }
     return hand;
 }
