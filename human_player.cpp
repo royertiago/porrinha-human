@@ -2,6 +2,7 @@
 #include <limits>
 
 #include "human_player.h"
+#include "core/util.h"
 
 namespace human_player {
 
@@ -15,25 +16,29 @@ std::string HumanPlayer::name() const {
 }
 
 int HumanPlayer::hand() {
+    int my_index = core::index( this );
+
     std::cout << "Human " << _name << ", type how many chopsticks"
-        " you will use this round:";
+        << " you will use this round: ";
     int hand;
+
     while( true ) {
         std::cin >> hand;
         if( !std::cin ) {
-            std::cout << "Please type a number:";
+            std::cout << "Please type a number: ";
             std::cin.clear();
             std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
             continue;
         }
-        if( hand > chopsticks ) {
-            std::cout << "You have only " << chopsticks << " chopsticks.\n"
-                "Type a valid number of chopsticks:";
+        if( hand > core::chopsticks(my_index) ) {
+            std::cout << "You have only " << core::chopsticks(my_index)
+                << " chopsticks.\n"
+                << "Type a valid number of chopsticks: ";
             continue;
         }
         if( hand < 0 ) {
             std::cout << "You cannot play a negative number of chopsticks!\n"
-                "Type a valid number of chopsticks:";
+                << "Type a valid number of chopsticks: ";
             continue;
         }
         break;
@@ -48,19 +53,30 @@ int HumanPlayer::guess( const std::vector<int>& other_guesses ) {
                       << other_guesses[i] << ".\n";
     }
 
-    std::cout << "Human " << _name << ", type your guess for this round:";
+    std::cout << "Human " << _name << ", type your guess for this round: ";
     int guess;
     while( true ) {
         std::cin >> guess;
         if( !std::cin ) {
-            std::cout << "Please type a number:";
+            std::cout << "Please type a number: ";
             std::cin.clear();
             std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
             continue;
         }
         if( guess < 0 ) {
             std::cout << "Your cannot guess a negative number of chopsticks!\n"
-                "Type a valid guess.";
+                << "Type a valid guess. ";
+            continue;
+        }
+        if( guess > core::chopstick_count() ) {
+            std::cout << "There are only " << core::chopstick_count()
+                << " chopsticks in the table.\n"
+                << "Type a smaller guess. ";
+            continue;
+        }
+        if( !core::valid_guess(guess) ) {
+            std::cout << "Another player already guessed this value.\n"
+                << "Type another guess. ";
             continue;
         }
         break;
