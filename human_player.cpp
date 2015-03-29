@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits>
 
 #include "human_player.h"
 
@@ -22,6 +23,7 @@ int HumanPlayer::hand() {
         if( !std::cin ) {
             std::cout << "Please type a number:";
             std::cin.clear();
+            std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
             continue;
         }
         if( hand > chopsticks ) {
@@ -53,6 +55,7 @@ int HumanPlayer::guess( const std::vector<int>& other_guesses ) {
         if( !std::cin ) {
             std::cout << "Please type a number:";
             std::cin.clear();
+            std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
             continue;
         }
         if( guess < 0 ) {
