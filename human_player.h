@@ -7,18 +7,14 @@ namespace human_player {
 
     class HumanPlayer : public Player {
         std::string _name;
-        int chopsticks;
     public:
-        HumanPlayer( std::string name, int chopsticks );
+        HumanPlayer( std::string name );
 
         /* Overriden methods */
         std::string name() const override;
         int hand() override;
-        int guess( const std::vector<int>& other_guesses ) override;
-        void settle_round(
-            const std::vector<int>& hands,
-            const std::vector<int>& guesses
-        ) override;
+        int guess() override;
+        void settle_round() override;
     };
 
 } // namespace human_player

@@ -6,9 +6,8 @@
 
 namespace human_player {
 
-HumanPlayer::HumanPlayer( std::string name, int chopsticks ) :
-    _name(name),
-    chopsticks(chopsticks)
+HumanPlayer::HumanPlayer( std::string name ) :
+    _name(name)
 {}
 
 std::string HumanPlayer::name() const {
@@ -46,11 +45,11 @@ int HumanPlayer::hand() {
     return hand;
 }
 
-int HumanPlayer::guess( const std::vector<int>& other_guesses ) {
-    for( unsigned i = 0; i < other_guesses.size(); i++ ) {
-        if( other_guesses[i] >= 0 )
+int HumanPlayer::guess() {
+    for( unsigned i = 0; i < core::player_count(); i++ ) {
+        if( core::guess(i) >= 0 )
             std::cout << "Player " << i << " guessed " 
-                      << other_guesses[i] << ".\n";
+                      << core::guess(i) << ".\n";
     }
 
     std::cout << "Human " << _name << ", type your guess for this round: ";
@@ -84,13 +83,10 @@ int HumanPlayer::guess( const std::vector<int>& other_guesses ) {
     return guess;
 }
 
-void HumanPlayer::settle_round(
-    const std::vector<int>& hands,
-    const std::vector<int>& guesses
-) {
-    for( unsigned i = 0; i < guesses.size(); i++ )
-        std::cout << "Player " << i << " guessed " << guesses[i]
-            << " and played " << hands[i] << " choptsicks.\n";
+void HumanPlayer::settle_round() {
+    for( unsigned i = 0; i < core::player_count(); i++ )
+        std::cout << "Player " << i << " guessed " << core::guess(i)
+            << " and played " << core::hand(i) << " choptsicks.\n";
 }
 
 } // namespace human_player
