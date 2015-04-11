@@ -4,7 +4,7 @@
 
 namespace human_player {
 
-    Player * generate( int /*argc*/, char ** /*argv*/ ) {
+    Player * generate( cmdline::args&& /*args*/ ) {
         std::string name;
         std::cout << "Type the player's name:\n";
         std::getline( std::cin, name );
