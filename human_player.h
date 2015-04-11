@@ -12,9 +12,11 @@ namespace human_player {
 
         /* Overriden methods */
         std::string name() const override;
+        void begin_game() override;
         int hand() override;
         int guess() override;
-        void settle_round() override;
+        void end_round() override;
+        void end_game() override;
     };
 
 } // namespace human_player

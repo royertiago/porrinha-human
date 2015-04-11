@@ -10,6 +10,20 @@ HumanPlayer::HumanPlayer( std::string name ) :
     _name(name)
 {}
 
+void HumanPlayer::begin_game() {
+    // no-op
+}
+
+void HumanPlayer::end_game() {
+    // no-op
+}
+
+void HumanPlayer::end_round() {
+    for( unsigned i = 0; i < core::player_count(); i++ )
+        std::cout << "Player " << i << " guessed " << core::guess(i)
+            << " and played " << core::hand(i) << " choptsicks.\n";
+}
+
 std::string HumanPlayer::name() const {
     return _name;
 }
@@ -81,12 +95,6 @@ int HumanPlayer::guess() {
         break;
     }
     return guess;
-}
-
-void HumanPlayer::settle_round() {
-    for( unsigned i = 0; i < core::player_count(); i++ )
-        std::cout << "Player " << i << " guessed " << core::guess(i)
-            << " and played " << core::hand(i) << " choptsicks.\n";
 }
 
 } // namespace human_player
